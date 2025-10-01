@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Словарь данных - Система доставки заказов</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        .description {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9f7fe;
+        }
+        .entity-name {
+            font-weight: bold;
+            background-color: #2c3e50;
+            color: white;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        .required {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .optional {
+            color: #27ae60;
+        }
+        .section {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #3498db;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <h1>Словарь данных для системы доставки заказов</h1>
+    
+    <div class="description">
+        <p>Данный словарь данных описывает сущности системы доставки заказов, их атрибуты, типы данных и обязательность заполнения.</p>
+    </div>
+
+    <h2 class="section">Сущности системы</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Название сущности</th>
+                <th>Мнемоника</th>
+                <th>Описание понятия</th>
+                <th>Тип данных</th>
+                <th>Обязательность</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="entity-name">Курьер</td>
+                <td>dlv00100</td>
+                <td>Сотрудник, осуществляющий доставку заказов от места комплектации к клиенту</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор курьера</td>
+                <td>courier_id</td>
+                <td>Уникальный идентификатор курьера в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>ФИО курьера</td>
+                <td>courier_name</td>
+                <td>Полное имя курьера</td>
+                <td>Строка (100)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Контактный телефон</td>
+                <td>courier_phone</td>
+                <td>Телефон для связи с курьером</td>
+                <td>Строка (20)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Транспорт</td>
+                <td>transport</td>
+                <td>Тип транспорта курьера (пеший, велосипед, автомобиль)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Статус курьера</td>
+                <td>courier_status</td>
+                <td>Текущий статус (активен, неактивен, занят, свободен)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Текущая геопозиция</td>
+                <td>current_location</td>
+                <td>Текущие координаты курьера (широта, долгота)</td>
+                <td>Координаты</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Заказ</td>
+                <td>dlv00200</td>
+                <td>Информация о заказе, подлежащем доставке от продавца к клиенту</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор заказа</td>
+                <td>order_id</td>
+                <td>Уникальный идентификатор заказа в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Номер заказа у продавца</td>
+                <td>external_order_id</td>
+                <td>Идентификатор заказа в системе продавца</td>
+                <td>Строка (50)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Описание заказа</td>
+                <td>order_description</td>
+                <td>Краткое описание содержимого заказа</td>
+                <td>Текст (255)</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Вес заказа</td>
+                <td>order_weight</td>
+                <td>Примерный вес заказа в кг</td>
+                <td>Десятичное число (5,2)</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Габариты заказа</td>
+                <td>order_dimensions</td>
+                <td>Примерные габариты (длина, ширина, высота)</td>
+                <td>Строка (50)</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Статус заказа</td>
+                <td>order_status</td>
+                <td>Текущий статус (новый, назначен, забран, в пути, доставлен, отменен)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Приоритет заказа</td>
+                <td>priority</td>
+                <td>Приоритет доставки (обычный, срочный, очень срочный)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Продавец</td>
+                <td>dlv00300</td>
+                <td>Магазин или предприятие питания, откуда забирается заказ</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор продавца</td>
+                <td>seller_id</td>
+                <td>Уникальный идентификатор продавца в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Название продавца</td>
+                <td>seller_name</td>
+                <td>Наименование магазина или предприятия</td>
+                <td>Строка (100)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Адрес места комплектации</td>
+                <td>pickup_address</td>
+                <td>Адрес, откуда нужно забрать заказ</td>
+                <td>Строка (255)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Координаты места комплектации</td>
+                <td>pickup_coordinates</td>
+                <td>Географические координаты места комплектации</td>
+                <td>Координаты</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Контактное лицо</td>
+                <td>contact_person</td>
+                <td>ФИО контактного лица у продавца</td>
+                <td>Строка (100)</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Контактный телефон</td>
+                <td>seller_phone</td>
+                <td>Телефон для связи с продавцом</td>
+                <td>Строка (20)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Клиент</td>
+                <td>dlv00400</td>
+                <td>Получатель заказа, физическое или юридическое лицо</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор клиента</td>
+                <td>client_id</td>
+                <td>Уникальный идентификатор клиента в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>ФИО клиента</td>
+                <td>client_name</td>
+                <td>Полное имя получателя заказа</td>
+                <td>Строка (100)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Адрес доставки</td>
+                <td>delivery_address</td>
+                <td>Адрес, куда нужно доставить заказ</td>
+                <td>Строка (255)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Координаты доставки</td>
+                <td>delivery_coordinates</td>
+                <td>Географические координаты места доставки</td>
+                <td>Координаты</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Контактный телефон</td>
+                <td>client_phone</td>
+                <td>Телефон для связи с клиентом</td>
+                <td>Строка (20)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Предпочтения по доставке</td>
+                <td>delivery_preferences</td>
+                <td>Особые пожелания по доставке</td>
+                <td>Текст (255)</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Диспетчер</td>
+                <td>dlv00500</td>
+                <td>Сотрудник, контролирующий работу курьеров и распределяющий заказы</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор диспетчера</td>
+                <td>dispatcher_id</td>
+                <td>Уникальный идентификатор диспетчера в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>ФИО диспетчера</td>
+                <td>dispatcher_name</td>
+                <td>Полное имя диспетчера</td>
+                <td>Строка (100)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Смена работы</td>
+                <td>work_shift</td>
+                <td>Рабочая смена диспетчера</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Администратор</td>
+                <td>dlv00600</td>
+                <td>Сотрудник, регистрирующий курьеров и управляющий правами доступа</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор администратора</td>
+                <td>admin_id</td>
+                <td>Уникальный идентификатор администратора в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>ФИО администратора</td>
+                <td>admin_name</td>
+                <td>Полное имя администратора</td>
+                <td>Строка (100)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Назначение заказа</td>
+                <td>dlv00700</td>
+                <td>Связь между заказом и курьером, который его доставляет</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор назначения</td>
+                <td>assignment_id</td>
+                <td>Уникальный идентификатор назначения</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Время назначения</td>
+                <td>assignment_time</td>
+                <td>Дата и время назначения заказа курьеру</td>
+                <td>DateTime</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Ожидаемое время прибытия</td>
+                <td>eta_pickup</td>
+                <td>Расчетное время прибытия курьера к продавцу</td>
+                <td>DateTime</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Ожидаемое время доставки</td>
+                <td>eta_delivery</td>
+                <td>Расчетное время доставки заказа клиенту</td>
+                <td>DateTime</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Платеж</td>
+                <td>dlv00800</td>
+                <td>Информация о платежах за доставку и расчетах с курьерами</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор платежа</td>
+                <td>payment_id</td>
+                <td>Уникальный идентификатор платежа</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Сумма оплаты продавцу</td>
+                <td>seller_payment</td>
+                <td>Сумма, выплачиваемая продавцу за доставку</td>
+                <td>Десятичное число (10,2)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Сумма оплаты курьеру</td>
+                <td>courier_payment</td>
+                <td>Сумма, выплачиваемая курьеру за доставку</td>
+                <td>Десятичное число (10,2)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Статус платежа</td>
+                <td>payment_status</td>
+                <td>Статус платежа (ожидает, обработан, выплачен)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Дата выплаты</td>
+                <td>payment_date</td>
+                <td>Дата фактической выплаты</td>
+                <td>Date</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Транзакция</td>
+                <td>dlv00900</td>
+                <td>История изменений статуса заказа и действий курьера</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор транзакции</td>
+                <td>transaction_id</td>
+                <td>Уникальный идентификатор транзакции</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Время транзакции</td>
+                <td>transaction_time</td>
+                <td>Дата и время изменения статуса</td>
+                <td>DateTime</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Предыдущий статус</td>
+                <td>previous_status</td>
+                <td>Статус заказа до изменения</td>
+                <td>Перечисление</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Новый статус</td>
+                <td>new_status</td>
+                <td>Статус заказа после изменения</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Комментарий</td>
+                <td>transaction_comment</td>
+                <td>Комментарий к изменению статуса</td>
+                <td>Текст (255)</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+</body>
+</html>

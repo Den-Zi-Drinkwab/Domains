@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Словарь данных - Система онлайн-записи</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+        .description {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+            border-left: 4px solid #3498db;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9f7fe;
+        }
+        .entity-name {
+            font-weight: bold;
+            background-color: #2c3e50;
+            color: white;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        @media (max-width: 768px) {
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        .required {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        .optional {
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+    <h1>Словарь данных для системы онлайн-записи в барбершоп</h1>
+    
+    <div class="description">
+        <p>Данный словарь данных описывает сущности системы, их атрибуты, типы данных и обязательность заполнения.</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Название сущности</th>
+                <th>Мнемоника</th>
+                <th>Описание понятия</th>
+                <th>Тип данных</th>
+                <th>Обязательность</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="entity-name">Менеджер</td>
+                <td>st00100</td>
+                <td>Сотрудник, управляющий расписанием мастеров, услугами, осуществляющий связь с клиентами и обработку оплат</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор менеджера</td>
+                <td>manager_id</td>
+                <td>Уникальный идентификатор менеджера в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>ФИО менеджера</td>
+                <td>manager_name</td>
+                <td>Полное имя менеджера</td>
+                <td>Строка (100)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Контактные данные</td>
+                <td>manager_contacts</td>
+                <td>Телефон и email менеджера</td>
+                <td>JSON</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Клиент</td>
+                <td>st00200</td>
+                <td>Физическое лицо, осуществляющее запись на услуги барбершопа</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор клиента</td>
+                <td>client_id</td>
+                <td>Уникальный идентификатор клиента в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>ФИО клиента</td>
+                <td>client_name</td>
+                <td>Полное имя клиента</td>
+                <td>Строка (100)</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Телефон</td>
+                <td>client_phone</td>
+                <td>Контактный телефон клиента</td>
+                <td>Строка (20)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>client_email</td>
+                <td>Электронная почта клиента</td>
+                <td>Строка (100)</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Предпочтения связи</td>
+                <td>com_preference</td>
+                <td>Предпочтительный способ уведомлений (Telegram, WhatsApp, VK, СМС)</td>
+                <td>Перечисление</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Мастер</td>
+                <td>st00300</td>
+                <td>Сотрудник барбершопа, оказывающий услуги клиентам</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор мастера</td>
+                <td>master_id</td>
+                <td>Уникальный идентификатор мастера в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>ФИО мастера</td>
+                <td>master_name</td>
+                <td>Полное имя мастера</td>
+                <td>Строка (100)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Специализация</td>
+                <td>specialization</td>
+                <td>Типы услуг, которые предоставляет мастер (парикмахерские, косметологические)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Статус</td>
+                <td>master_status</td>
+                <td>Текущий статус мастера (активен, неактивен, отпуск)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Запись</td>
+                <td>st00400</td>
+                <td>Факт записи клиента на конкретную услугу к конкретному мастеру в определенное время</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор записи</td>
+                <td>appointment_id</td>
+                <td>Уникальный идентификатор записи в системе</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Дата и время</td>
+                <td>appointment_datetime</td>
+                <td>Планируемые дата и время оказания услуги</td>
+                <td>DateTime</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Статус записи</td>
+                <td>appointment_status</td>
+                <td>Текущий статус записи (подтверждена, выполнена, отменена, перенесена)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Расписание</td>
+                <td>st00500</td>
+                <td>Рабочие часы и перерывы мастера, на основе которых система рассчитывает свободные интервалы</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор расписания</td>
+                <td>schedule_id</td>
+                <td>Уникальный идентификатор элемента расписания</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>День недели</td>
+                <td>day_of_week</td>
+                <td>День недели, к которому относится расписание</td>
+                <td>Перечисление (1-7)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Время начала</td>
+                <td>start_time</td>
+                <td>Время начала рабочего дня</td>
+                <td>Time</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Время окончания</td>
+                <td>end_time</td>
+                <td>Время окончания рабочего дня</td>
+                <td>Time</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Перерывы</td>
+                <td>breaks</td>
+                <td>Информация о перерывах в работе мастера</td>
+                <td>JSON</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Уведомление</td>
+                <td>st00600</td>
+                <td>Лог запланированных и отправленных уведомлений клиентам для напоминаний о записи</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор уведомления</td>
+                <td>notification_id</td>
+                <td>Уникальный идентификатор уведомления</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Тип уведомления</td>
+                <td>notification_type</td>
+                <td>Тип уведомления (напоминание, отмена, подтверждение)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Канал отправки</td>
+                <td>channel</td>
+                <td>Канал отправки уведомления (Telegram, WhatsApp, VK, СМС)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Статус отправки</td>
+                <td>send_status</td>
+                <td>Статус отправки уведомления (запланировано, отправлено, доставлено, ошибка)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Время отправки</td>
+                <td>send_time</td>
+                <td>Фактическое время отправки уведомления</td>
+                <td>DateTime</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Отзыв</td>
+                <td>st00700</td>
+                <td>Оценка и обратная связь от клиента о качестве оказанной услуги</td>
+                <td>Сущность</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор отзыва</td>
+                <td>review_id</td>
+                <td>Уникальный идентификатор отзыва</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Оценка</td>
+                <td>rating</td>
+                <td>Оценка услуги по шкале от 1 до 5</td>
+                <td>Целое число (1-5)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Текст отзыва</td>
+                <td>review_text</td>
+                <td>Текстовый отзыв клиента о качестве услуги</td>
+                <td>Текст</td>
+                <td class="optional">Необязательно</td>
+            </tr>
+            <tr>
+                <td>Дата создания</td>
+                <td>review_date</td>
+                <td>Дата и время создания отзыва</td>
+                <td>DateTime</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            
+            <tr>
+                <td class="entity-name">Услуга</td>
+                <td>st00800</td>
+                <td>Услуга, предоставляемая барбершопом</td>
+                <td>Сущность</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Идентификатор услуги</td>
+                <td>service_id</td>
+                <td>Уникальный идентификатор услуги</td>
+                <td>UUID</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Название услуги</td>
+                <td>service_name</td>
+                <td>Наименование услуги</td>
+                <td>Строка (100)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Тип услуги</td>
+                <td>service_type</td>
+                <td>Тип услуги (парикмахерская, косметологическая)</td>
+                <td>Перечисление</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Длительность</td>
+                <td>duration</td>
+                <td>Продолжительность оказания услуги в минутах</td>
+                <td>Целое число</td>
+                <td class="required">Обязательно</td>
+            </tr>
+            <tr>
+                <td>Стоимость</td>
+                <td>price</td>
+                <td>Стоимость услуги</td>
+                <td>Десятичное число (10,2)</td>
+                <td class="required">Обязательно</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
